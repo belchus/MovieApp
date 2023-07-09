@@ -1,0 +1,59 @@
+{% extends 'index.html' %} {% block title %} {%endblock%}
+{% block main_content %}
+
+<section class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2 class="my-5">Agregar una nueva pelicula</h2>
+  
+        {% if add_form.errors %}
+        <span style="color: red"
+          >Lo datos son incorrectos, por favor, intentelo de nuevo</span
+        >
+        {% endif %}
+  
+        <form
+          class="mx-5 px-3"
+          action="{% url 'add_form' %}"
+          method="POST"
+        >
+          {% csrf_token %}
+  
+          <div
+            class="d-flex justify-content-center col-lg-6 mb-3 align-items-center"
+          >
+            <table>
+              {{ AddMovie.as_table }}
+            </table>
+
+            <button
+              style="max-height: 3rem"
+              type="submit"
+              class="btn btn-primary mx-3"
+            >
+              Agregar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section class="allmovies">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2 class="title2">Movies</h2>
+
+          {% for movie in all_movies %}
+          <li >
+              <div class="flex-fil mb-2" >
+                  <p class="my-auto"><b class="gradient">Pelicula: </b>{{movie.title}} <br>
+                      <b class="gradient">Sinopsis: </b> {{movie.description}}
+                  </p>
+              </div>
+          </li>
+          <a class="btn btn-primary my-3 py-1" href="{% url 'review_form' %}">Deja tu MovieReview</a>
+          {% endfor %}
+
+    </div>
+  </section>
+  {% endblock %}
